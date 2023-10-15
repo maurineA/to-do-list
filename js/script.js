@@ -14,6 +14,21 @@ document.addEventListener('DOMContentLoaded', ()=>{
 // })
 
 let form = document.querySelector('form')
+let todoList =document.getElementById('todo-list')
+
+ //get data from the server in JS using fetch API after creating JSON file
+fetch(`http://127.0.0.1:5000/todos`)
+.then(res => res.json())
+// .then(data => console.log(todos[0].title))//gives us one title
+.then(todos => {
+    todos.forEach(todo => {
+        let listItem = document.createElement('li')
+        listItem.innerText = `Title: ${todo.title} ID: ${todo.id}`
+        todoList.appendChild(listItem)
+        
+    });
+})
+//the data is on the console, now display out todos in the DOM
 
 form.addEventListener('submit', (e) =>{
 
@@ -23,7 +38,7 @@ form.addEventListener('submit', (e) =>{
     console.log(inputElem.value)//display value
 
     //put the value in the todo list
-    let todolist =document.getElementById('todo-list')
+    
     
     //create the list item
     let listItem = document.createElement('li')
@@ -32,6 +47,7 @@ form.addEventListener('submit', (e) =>{
     //add it to the DOM through .appendChild()
     todolist.appendChild(listItem)//add a child which is an element listItem(the new list item to the existing item)
     //here the data is not persistence...create JSON server to store the data
+    //get data from the server in JS using fetch API
 
 
 })
